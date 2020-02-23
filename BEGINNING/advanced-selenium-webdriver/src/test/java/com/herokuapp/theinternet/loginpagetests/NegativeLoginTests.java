@@ -6,7 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.herokuapp.thinternet.base.*;
 
-public class NegativeLoginTests extends BaseTest {
+public class NegativeLoginTests extends TestUtilities {
 
 	@Parameters({"username", "password", "expectedMessage"})
 	@Test(priority = 1)
