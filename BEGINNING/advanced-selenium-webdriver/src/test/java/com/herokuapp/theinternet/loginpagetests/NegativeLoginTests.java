@@ -1,49 +1,14 @@
 package com.herokuapp.theinternet.loginpagetests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import com.herokuapp.thinternet.base.*;
 
-public class NegativeLoginTests {
+public class NegativeLoginTests extends BaseTest {
 
-	WebDriver driver;
-
-
-	@Parameters({ "browser" })
-	@BeforeMethod
-	private void setUp(@Optional("chrome") String browser) {
-		// Create driver
-		System.out.println("Create driver: " + browser);
-
-		switch (browser) {
-		case "chrome":
-			System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-			driver = new ChromeDriver();
-			break;
-
-		case "firefox":
-			System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-			driver = new FirefoxDriver();
-			break;
-
-		default:
-			System.out.println("Do not know how to start: " + browser + ", starting chrome.");
-			System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-			driver = new ChromeDriver();
-			break;
-		}
-		driver.manage().window().maximize();
-	}
-
-
-	@Parameters({ "username", "password", "expectedMessage" })
+	@Parameters({"username", "password", "expectedMessage"})
 	@Test(priority = 1)
 	public void negativeTest(String username, String password, String expectedErrorMessage) {
 		System.out.println("Starting negativeTest");
@@ -68,13 +33,5 @@ public class NegativeLoginTests {
 		Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage),
 				"actualErrorMessage does not contain expectedErrorMessage\nexpectedErrorMessage: "
 						+ expectedErrorMessage + "\nactualErrorMessage: " + actualErrorMessage);
-	}
-
-
-	@AfterMethod
-	private void tearDown() {
-		System.out.println("Close driver");
-		// Close browser
-		driver.quit();
 	}
 }
